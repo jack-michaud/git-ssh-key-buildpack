@@ -4,7 +4,7 @@ ENV_DIR=${3:-}
 
 git_ssh_key="$(cat $ENV_DIR/GIT_SSH_KEY)"
 git_ssh_host="$(cat $ENV_DIR/GIT_SSH_HOST)"
-git_ssh_user="$(cat $ENV_DIR/GIT_USER)"
+git_user="$(cat $ENV_DIR/GIT_USER)"
 
 if [ "$git_ssh_key" != "" ] && [ "$git_ssh_host" != "" ]; then
   echo "Detected SSH key and host for git. Adding SSH config" >&1
@@ -30,4 +30,9 @@ if [ "$git_ssh_key" != "" ] && [ "$git_ssh_host" != "" ]; then
           " UserKnownHostsFile=/dev/null\n"\
           " StrictHostKeyChecking no"\
           > ~/.ssh/config
+
+  if [ "$git_user" != "" ]; then
+    echo "Adding User to ~/.ssh/config" >&1
+    echo " User $git_user\n" >> ~/.ssh/config
+  fi
 fi
