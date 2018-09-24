@@ -17,8 +17,12 @@ A Heroku buildpack for setting a private git SSH key as part of the application 
     ```shell
     $ heroku config:set GIT_SSH_HOST="example.com"
     ```
+4. (FOR GITHUB MACHINE USERS) Configure the Heroku environment variable `GIT_USER` based on which account the key is registered to. 
 
-4. Add the buildpack to Heroku using either the CLI or the dashboard. It will need to run before any buildpack trying to get SSH access. In the following example, it runs before the `heroku/nodejs` buildpack:
+    ```shell
+    $ heroku config:set GIT_USER="my-machine-user"
+
+5. Add the buildpack to Heroku using either the CLI or the dashboard. It will need to run before any buildpack trying to get SSH access. In the following example, it runs before the `heroku/nodejs` buildpack:
 
     ```shell
     $ heroku buildpacks:set --index 1 https://github.com/poetic-labs/git-ssh-key-buildpack.git
